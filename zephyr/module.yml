@@ -1,0 +1,4 @@
+name: zdse-themes
+build:
+  cmake: .
+  kconfig: Kconfig
