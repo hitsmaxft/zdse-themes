@@ -1,0 +1,4 @@
+Object.assign(DTE_TRANSLATIONS.en,{radar_controls:'RADAR PHOSPHOR',radar_speed:'Sweep profile',radar_active:'Active · 10 seconds',radar_quiet:'Quiet · 15 seconds',radar_start:'Trail initialization',radar_warmed:'Warmed · complete trail',radar_cold:'Cold · first sweep',radar_aurora:'Aurora trail',radar_targets:'Target echoes',radar_damage:'Damage tiles'});
+Object.assign(DTE_TRANSLATIONS['zh-CN'],{radar_controls:'雷达荧光',radar_speed:'扫描速度',radar_active:'活跃 · 10 秒一周',radar_quiet:'安静 · 15 秒一周',radar_start:'余晖初始化',radar_warmed:'预热 · 完整余晖',radar_cold:'冷启动 · 首次扫描',radar_aurora:'极光余晖',radar_targets:'目标回波',radar_damage:'损伤分块'});
+Object.assign(DTE_TRANSLATIONS.ja,{radar_controls:'レーダー蛍光',radar_speed:'走査速度',radar_active:'アクティブ · 10秒',radar_quiet:'静穏 · 15秒',radar_start:'残光の初期状態',radar_warmed:'ウォーム · 完全な残光',radar_cold:'コールド · 初回走査',radar_aurora:'オーロラ残光',radar_targets:'ターゲット反響',radar_damage:'更新タイル'});
+window.dteI18n.set(window.dteI18n.locale);

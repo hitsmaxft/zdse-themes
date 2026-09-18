@@ -1,0 +1,3 @@
+config ZDSE_RADAR_THEME
+    bool "ZDSE phosphor radar example"
+    depends on ZMK_DONGLE_SCREEN_ENGINE

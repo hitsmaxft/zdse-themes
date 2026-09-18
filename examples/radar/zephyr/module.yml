@@ -1,0 +1,4 @@
+name: zdse-radar-theme
+build:
+  cmake: .
+  kconfig: Kconfig

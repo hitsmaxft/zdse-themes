@@ -1,0 +1,31 @@
+{
+  "id": "zdse-radar",
+  "display_name": "ZDSE · Phosphor Radar",
+  "continuous_animation": true,
+  "pixel_art": true,
+  "sources": [
+    "src/radar/background.c",
+    "src/radar/sweep.c",
+    "src/themes/radar_scan.c"
+  ],
+  "exports": [
+    "zdse_radar_set_speed_profile",
+    "zdse_radar_set_speed_profile_at",
+    "zdse_radar_get_speed_profile",
+    "zdse_radar_set_boost_at",
+    "zdse_radar_get_boost",
+    "zdse_radar_set_aurora",
+    "zdse_radar_get_aurora",
+    "zdse_radar_set_cold_start",
+    "zdse_radar_get_cold_start",
+    "zdse_radar_set_targets",
+    "zdse_radar_get_targets",
+    "zdse_radar_set_damage_overlay",
+    "zdse_radar_get_damage_overlay",
+    "zdse_radar_last_pixels_shaded",
+    "zdse_radar_last_dirty_tiles"
+  ],
+  "preview_controls": "web/radar_controls.html",
+  "preview_i18n": "web/radar_i18n.js",
+  "preview_script": "web/radar_preview.js"
+}
