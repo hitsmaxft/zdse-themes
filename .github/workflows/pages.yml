@@ -1,0 +1,77 @@
+name: Theme Previews
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pages.yml'
+      - 'themes/**'
+      - 'web/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out themes
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check out LVGL
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: zmkfirmware/lvgl
+          ref: f1db87ee98f1810328a8419572fa42a3b5f352ae
+          path: .preview-deps/lvgl
+
+      - name: Configure Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - name: Build Neon Cat preview
+        uses: hitsmaxft/zmk-dongle-screen-engine/.github/actions/build-preview@v1.1.1
+        with:
+          theme-path: themes/neon-cat
+          lvgl-path: .preview-deps/lvgl
+          output-path: site/neon-cat
+
+      - name: Build Phosphor Radar preview
+        uses: hitsmaxft/zmk-dongle-screen-engine/.github/actions/build-preview@v1.1.1
+        with:
+          theme-path: themes/radar
+          lvgl-path: .preview-deps/lvgl
+          output-path: site/radar
+
+      - name: Assemble gallery
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp web/index.html site/index.html
+          mkdir -p site/previews
+          cp docs/previews/neon-cat.png site/previews/neon-cat.png
+          cp docs/previews/radar.png site/previews/radar.png
+          touch site/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

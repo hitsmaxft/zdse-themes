@@ -4,6 +4,8 @@ Optional themes for
 [`zmk-dongle-screen-engine`](https://github.com/hitsmaxft/zmk-dongle-screen-engine).
 Each theme is compiled only when its Kconfig option is explicitly enabled.
 
+[Open the interactive preview gallery](https://hitsmaxft.github.io/zdse-themes/).
+
 ## Neon Cat 1.0
 
 A synthwave pixel HUD with a time-driven character, water shimmer, equalizer,
