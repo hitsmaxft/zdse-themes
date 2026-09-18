@@ -4,7 +4,7 @@ Optional themes for
 [`zmk-dongle-screen-engine`](https://github.com/hitsmaxft/zmk-dongle-screen-engine).
 Each theme is compiled only when its Kconfig option is explicitly enabled.
 
-[Open the interactive preview gallery](https://hitsmaxft.github.io/zdse-themes/).
+[Open the interactive preview gallery](https://gh.bhee.online/zdse-themes/).
 
 ## Neon Cat 1.0
 
