@@ -34,14 +34,14 @@ jobs:
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
       - name: Build Neon Cat preview
-        uses: hitsmaxft/zmk-dongle-screen-engine/.github/actions/build-preview@v1.1.1
+        uses: hitsmaxft/zmk-dongle-screen-engine/.github/actions/build-preview@v1.1.2
         with:
           theme-path: themes/neon-cat
           lvgl-path: .preview-deps/lvgl
           output-path: site/neon-cat
 
       - name: Build Phosphor Radar preview
-        uses: hitsmaxft/zmk-dongle-screen-engine/.github/actions/build-preview@v1.1.1
+        uses: hitsmaxft/zmk-dongle-screen-engine/.github/actions/build-preview@v1.1.2
         with:
           theme-path: themes/radar
           lvgl-path: .preview-deps/lvgl

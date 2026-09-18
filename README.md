@@ -38,7 +38,7 @@ manifest:
   projects:
     - name: zmk-dongle-screen-engine
       remote: hitsmaxft
-      revision: v1.1.0
+      revision: v1.1.2
       path: modules/zmk-dongle-screen-engine
     - name: zdse-themes
       remote: hitsmaxft
