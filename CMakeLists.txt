@@ -1,1 +1,2 @@
-add_subdirectory(examples/radar)
+add_subdirectory(themes/neon-cat)
+add_subdirectory(themes/radar)

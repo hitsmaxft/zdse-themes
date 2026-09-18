@@ -1,0 +1,16 @@
+{
+  "id": "zdse-neon-cat-v1",
+  "display_name": "ZDSE · Neon Cat 1.0",
+  "continuous_animation": true,
+  "pixel_art": true,
+  "sources": [
+    "src/common/pixel_ui.c",
+    "src/common/neon_font.c",
+    "src/common/spleen_font.c",
+    "src/themes/neon_atlas_v2.c",
+    "src/themes/neon_animation.c",
+    "src/themes/neon_scene.c",
+    "src/themes/neon_widgets.c",
+    "src/themes/neon_cat.c"
+  ]
+}

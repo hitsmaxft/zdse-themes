@@ -1,1 +1,2 @@
-rsource "examples/radar/Kconfig"
+rsource "themes/neon-cat/Kconfig"
+rsource "themes/radar/Kconfig"

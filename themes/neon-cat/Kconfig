@@ -1,0 +1,7 @@
+config ZDSE_NEON_CAT_THEME
+    bool "ZDSE Neon Cat 1.0 theme"
+    default n
+    depends on ZMK_DONGLE_SCREEN_ENGINE
+    help
+      Build the Neon Cat 1.0 renderer and its generated C payloads. Merely
+      adding this module to the workspace does not enable the theme.
