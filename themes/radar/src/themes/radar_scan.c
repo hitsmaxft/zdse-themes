@@ -1,5 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 #include <zdse/radar.h>
+#include <zmk/dongle_theme/adapter.h>
 #include <zmk/dongle_theme/raster.h>
 #include <zmk/dongle_theme/theme.h>
 
@@ -14,11 +15,20 @@ static void mount(int w, int h, uint32_t now) {
 
 static void gesture(int kind, uint32_t now) {
   switch (kind) {
-  case DTE_TAP: zdse_radar_set_aurora(!zdse_radar_get_aurora()); break;
-  case DTE_LEFT: zdse_radar_set_speed_profile_at(ZDSE_RADAR_SPEED_QUIET, now); break;
-  case DTE_RIGHT: zdse_radar_set_speed_profile_at(ZDSE_RADAR_SPEED_ACTIVE, now); break;
-  case DTE_UP: zdse_radar_set_targets(!zdse_radar_get_targets()); break;
-  default: break;
+  case DTE_TAP:
+    zdse_radar_set_aurora(!zdse_radar_get_aurora());
+    break;
+  case DTE_LEFT:
+    zdse_radar_set_speed_profile_at(ZDSE_RADAR_SPEED_QUIET, now);
+    break;
+  case DTE_RIGHT:
+    zdse_radar_set_speed_profile_at(ZDSE_RADAR_SPEED_ACTIVE, now);
+    break;
+  case DTE_UP:
+    zdse_radar_set_targets(!zdse_radar_get_targets());
+    break;
+  default:
+    break;
   }
 }
 
@@ -33,5 +43,4 @@ static int render(const struct dte_snapshot *snapshot, uint32_t now,
   return 1;
 }
 
-const struct dte_theme dte_selected_theme = {
-    DTE_ABI_VERSION, "zdse-radar-phosphor", mount, gesture, render};
+DTE_THEME_RASTER_ADAPTER("zdse-radar-phosphor", mount, gesture, render);
