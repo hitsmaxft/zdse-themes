@@ -27,6 +27,15 @@ def verify(folder: Path) -> None:
     for modifier in (0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80):
         assert frame(100,modifier)!=base,f"modifier 0x{modifier:02x} must change button"
     assert frame(100, layer=5, layer_name=b"NAVI") != frame(100), "layer snapshot must change header"
+    api.dte_init(280,240);api.dte_preview_set_strip_pixels(17920)
+    api.dte_preview_transfer_bytes.restype=C.c_uint
+    api.dte_preview_draw_calls.restype=C.c_uint
+    api.dte_set_state(72,0,2,0,0,87,64,93,1,1);api.dte_set_layer_name(b"BASE")
+    api.dte_render(1000)
+    api.dte_set_state(72,5,2,0,0,87,64,93,1,1);api.dte_set_layer_name(b"NAVI")
+    api.dte_render(1001)
+    assert api.dte_preview_transfer_bytes()<=128*64*2
+    assert api.dte_preview_draw_calls()==1,"layer header must fit one coherent draw"
     frame(100);plain_footer=tuple(api.dte_pixels()[i] for i in range(198*280,240*280))
     frame(100,0,1);tap_footer=tuple(api.dte_pixels()[i] for i in range(198*280,240*280))
     assert tap_footer==plain_footer,"touch gestures must not fabricate modifier state"

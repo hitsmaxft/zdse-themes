@@ -149,12 +149,8 @@ static uint32_t text_hash(const char *text) {
   }
   return hash;
 }
-static int header_changed(const struct dte_snapshot *s) {
-  return palette != previous.palette || s->endpoint != previous.endpoint ||
-         s->profile != previous.profile || s->layer != previous.layer ||
-         s->battery_count != previous.battery_count ||
-         s->battery_dongle != previous.battery_dongle ||
-         text_hash(s->layer_name) != previous.layer_hash;
+static int baked_header(int p,int endpoint,int profile,int count,int dongle){
+  return !p&&endpoint!=1&&profile==0&&count==3&&dongle==78;
 }
 
 static int render(const struct dte_snapshot *s, uint32_t now,
@@ -182,8 +178,24 @@ static int render(const struct dte_snapshot *s, uint32_t now,
     if ((regions & NC_REGION_STATUS) &&
         s->battery_right != previous.battery_right)
       dtr_damage_rect(ox + 201, oy + 152, 65, 40);
-    if ((regions & NC_REGION_HEADER) && header_changed(s))
-      dtr_damage_rect(ox, oy, 280, 60);
+    if (regions & NC_REGION_HEADER) {
+      int current_baked=baked_header(palette,s->endpoint,s->profile,
+                                     s->battery_count,s->battery_dongle);
+      int prior_baked=baked_header(previous.palette,previous.endpoint,
+                                   previous.profile,previous.battery_count,
+                                   previous.battery_dongle);
+      if(palette!=previous.palette||current_baked!=prior_baked)
+        dtr_damage_rect(ox,oy,NC_CANVAS_W,60);
+      else {
+        if(s->endpoint!=previous.endpoint||s->profile!=previous.profile)
+          dtr_damage_rect(ox+8,oy+8,68,44);
+        if(s->layer!=previous.layer||text_hash(s->layer_name)!=previous.layer_hash)
+          dtr_damage_rect(ox+84,oy+8,116,52);
+        if(s->battery_count!=previous.battery_count||
+           s->battery_dongle!=previous.battery_dongle)
+          dtr_damage_rect(ox+216,oy+8,56,44);
+      }
+    }
     if ((regions & NC_REGION_FOOTER) && s->modifiers != previous.modifiers)
       dtr_damage_rect(ox, oy + 198, 280, 42);
   }
