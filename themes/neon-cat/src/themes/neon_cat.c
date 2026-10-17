@@ -233,4 +233,5 @@ static int render(const struct dte_snapshot *s, uint32_t now,
   return !!(regions & (NC_REGION_SCENE | NC_REGION_STATUS));
 }
 
-DTE_THEME_RASTER_ADAPTER("zdse-neon-cat", mount, gesture, render);
+DTE_THEME_RASTER_ADAPTER("zdse-neon-cat", DTE_THEME_RENDER_REGION_CAPABLE,
+                         mount, gesture, render);
