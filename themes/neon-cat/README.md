@@ -1,6 +1,7 @@
 # Neon Cat 1.0
 
-A complete synthwave RGB565 theme for `zmk-dongle-screen-engine` ABI 1.2.
+A complete synthwave RGB565 theme for `zmk-dongle-screen-engine` ABI 1.4.
+Use the pinned Engine revision in the [repository README](../../README.md).
 It includes the renderer and generated C atlas/font payloads. Original artwork,
 sprite sheets, and asset-generation tools are not distributed.
 

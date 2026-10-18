@@ -6,7 +6,8 @@ from pathlib import Path
 
 
 def verify(folder: Path) -> None:
-    api = C.CDLL(str((folder / "theme.dylib").resolve()))
+    library = "theme.dylib" if (folder / "theme.dylib").exists() else "theme.so"
+    api = C.CDLL(str((folder / library).resolve()))
     api.dte_hash.restype = C.c_uint32
     api.dte_pixels.restype = C.POINTER(C.c_uint16)
     api.dte_set_layer_name.argtypes = [C.c_char_p]

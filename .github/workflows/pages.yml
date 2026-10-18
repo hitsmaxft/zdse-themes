@@ -7,13 +7,20 @@ on:
       - '.github/workflows/pages.yml'
       - 'themes/**'
       - 'web/**'
+      - 'docs/previews/**'
+  pull_request:
+    paths:
+      - '.github/workflows/pages.yml'
+      - 'themes/**'
+      - 'web/**'
+      - 'docs/previews/**'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: pages
+  group: pages-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -31,21 +38,29 @@ jobs:
           path: .preview-deps/lvgl
 
       - name: Configure Pages
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
       - name: Build Neon Cat preview
-        uses: hitsmaxft/zmk-dongle-screen-engine/.github/actions/build-preview@v1.2.0
+        uses: hitsmaxft/zmk-dongle-screen-engine/.github/actions/build-preview@c068f0aa3e4c1c92665d98b7067174dfd4c102ce # ABI 1.4, region-capable raster adapters
         with:
           theme-path: themes/neon-cat
           lvgl-path: .preview-deps/lvgl
           output-path: site/neon-cat
 
       - name: Build Phosphor Radar preview
-        uses: hitsmaxft/zmk-dongle-screen-engine/.github/actions/build-preview@v1.2.0
+        uses: hitsmaxft/zmk-dongle-screen-engine/.github/actions/build-preview@c068f0aa3e4c1c92665d98b7067174dfd4c102ce # ABI 1.4, region-capable raster adapters
         with:
           theme-path: themes/radar
           lvgl-path: .preview-deps/lvgl
           output-path: site/radar
+
+      - name: Test theme behavior
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 themes/neon-cat/tests/test_neon_cat.py site/neon-cat
+          python3 themes/radar/tests/test_radar.py site/radar
 
       - name: Assemble gallery
         shell: bash
@@ -63,6 +78,7 @@ jobs:
           path: site
 
   deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
