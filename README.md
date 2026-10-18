@@ -38,13 +38,20 @@ manifest:
   projects:
     - name: zmk-dongle-screen-engine
       remote: hitsmaxft
-      revision: v1.2.0
+      revision: c068f0aa3e4c1c92665d98b7067174dfd4c102ce # Engine ABI 1.4
       path: modules/zmk-dongle-screen-engine
     - name: zdse-themes
       remote: hitsmaxft
-      revision: v1.0.0
+      revision: dae4019bae2977896eb840a29b80f66afbc2a899 # Region-capable themes
       path: modules/zdse-themes
 ```
+
+Both themes declare `DTE_THEME_RENDER_REGION_CAPABLE` and require the
+five-argument raster adapter introduced in Engine commit
+`c068f0aa3e4c1c92665d98b7067174dfd4c102ce` (ABI 1.4). Engine tags `v1.2.0`
+and `v1.4.1` still expose the four-argument adapter and are incompatible.
+The preview workflow pins the same Engine commit; do not substitute a floating
+`main` revision. The theme revision above contains both region declarations.
 
 Then add the Engine host shield and your display hardware shield to a dongle
 target. This minimal `build.yaml` example explicitly enables Neon Cat 1.0:
